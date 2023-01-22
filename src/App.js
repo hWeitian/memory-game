@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Typography } from "@mui/material";
-import { generatePairIdArray } from "./utlis";
+import { Typography, Grid, Container } from "@mui/material";
 import Board from "./Components/Board";
 
 const theme = createTheme({
@@ -16,36 +15,65 @@ class App extends React.Component {
     super(props);
     this.state = {
       rounds: 1,
+      numOfPlayers: 1,
+      players: [
+        { moves: [0], matched: [0] },
+        { moves: [0], matched: [0] },
+      ],
+      currentPlayer: 1,
     };
   }
 
-  /** Function to calculate total number of tiles to display based on the current round */
-  calNumOfTiles = (rounds) => {
-    const baseTilesNum = 8;
-    let tilesIncrement = 4;
+  updatePlayerInfo = (player, infoType) => {
+    player -= 1;
+    const currentPlayers = [...this.state.players];
+    const updatedPlayers = this.generateNewPlayerInfo(
+      currentPlayers,
+      player,
+      infoType,
+      1
+    );
 
-    let totalTiles = baseTilesNum;
-
-    for (let i = 0; i < rounds; i += 1) {
-      totalTiles += tilesIncrement;
-    }
-    return totalTiles;
+    this.setState({
+      players: updatedPlayers,
+    });
   };
 
-  /** Function to generate an array of unique pairs of id */
-  generateID = () => {
-    const totalTilesRequired = this.calNumOfTiles(this.state.rounds);
-    const numOfIdRequired = totalTilesRequired / 2;
-    const idArray = generatePairIdArray(numOfIdRequired);
-    return idArray;
+  /**
+   * Function to update a specific player's info
+   * @param {array} playersArr
+   * @param {number} playerIndex
+   * @param {string} infoType
+   * @param {number} info
+   * @returns {array} Returns a new array of players state with updated info
+   */
+  generateNewPlayerInfo = (playersArr, playerIndex, infoType, info) => {
+    const indexToUpdate = this.state.rounds - 1;
+    let newInfo = Number(playersArr[playerIndex][infoType][indexToUpdate]);
+    newInfo += info;
+    const newPlayersArr = playersArr.map((player, index) => {
+      if (index === playerIndex) {
+        player[infoType][indexToUpdate] = newInfo;
+        return player;
+      } else {
+        return player;
+      }
+    });
+    return newPlayersArr;
   };
 
   render() {
-    const idArray = this.generateID();
     return (
       <ThemeProvider theme={theme}>
         <div className="App" style={{ marginTop: "20px" }}>
-          <Board idArray={idArray} />
+          <Container>
+            <Board
+              rounds={this.state.rounds}
+              updatePlayerInfo={this.updatePlayerInfo}
+              currentPlayer={this.state.currentPlayer}
+              players={this.state.players}
+            />
+          </Container>
         </div>
       </ThemeProvider>
     );

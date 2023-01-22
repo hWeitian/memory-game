@@ -1,6 +1,8 @@
 import React from "react";
 import Tiles from "./Tiles/Tiles";
 import { Grid, Container } from "@mui/material";
+import { generateID } from "../utlis";
+import CurrentResults from "./CurrentResults";
 
 class Board extends React.Component {
   constructor(props) {
@@ -9,6 +11,7 @@ class Board extends React.Component {
       clickedTiles: [],
       matchedTiles: [],
       disable: "auto",
+      idArray: generateID(this.props.rounds),
     };
   }
 
@@ -27,6 +30,7 @@ class Board extends React.Component {
       clickedTiles: [],
       disable: "auto",
     }));
+    this.props.updatePlayerInfo(this.props.currentPlayer, "matched");
   };
 
   clearClickedTiles = () => {
@@ -36,19 +40,26 @@ class Board extends React.Component {
     });
   };
 
+  startTimer = () => {
+    this.setState({
+      timerRunning: true,
+    });
+  };
+
   handleClick = (id) => {
     let isMatched = false;
 
     if (this.state.clickedTiles.length === 1) {
+      this.props.updatePlayerInfo(this.props.currentPlayer, "moves");
       this.setState((prevState) => ({
         clickedTiles: [...prevState.clickedTiles, id],
         disable: "none",
       }));
       isMatched = this.checkMatched(id);
       if (isMatched) {
-        setTimeout(() => this.updateMatched(id), 1000);
+        setTimeout(() => this.updateMatched(id), 900);
       } else {
-        setTimeout(() => this.clearClickedTiles(), 2000);
+        setTimeout(() => this.clearClickedTiles(), 1000);
       }
     } else {
       this.setState((prevState) => ({
@@ -62,8 +73,13 @@ class Board extends React.Component {
     return (
       <>
         <Container style={{ maxWidth: "360px" }}>
-          <Grid container gap={1}>
-            {this.props.idArray.map((obj, index) =>
+          <CurrentResults
+            players={this.props.players}
+            currentPlayer={this.props.currentPlayer}
+            startTimer={this.state.timerRunning}
+          />
+          <Grid container gap={1} justifyContent="space-between">
+            {this.state.idArray.map((obj, index) =>
               this.state.matchedTiles.includes(obj["uniqueId"]) ? (
                 <Tiles
                   key={`${index}-${obj["uniqueId"]}`}

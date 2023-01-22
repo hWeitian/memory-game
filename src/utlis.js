@@ -11,7 +11,7 @@ const shuffleArray = (arr) => {
   return arr;
 };
 
-export const generatePairIdArray = (num) => {
+const generatePairIdArray = (num) => {
   const idArray = [];
   for (let i = 0; i < num; i += 1) {
     let id = generateRandomNum(num);
@@ -170,6 +170,27 @@ const emojiImages = [
   "1f4e5.png",
   "1f4e6.png",
 ];
+
+/** Function to calculate total number of tiles to display based on the current round */
+const calNumOfTiles = (rounds) => {
+  const baseTilesNum = 8;
+  let tilesIncrement = 4;
+
+  let totalTiles = baseTilesNum;
+
+  for (let i = 0; i < rounds; i += 1) {
+    totalTiles += tilesIncrement;
+  }
+  return totalTiles;
+};
+
+/** Function to generate an array of unique pairs of id */
+export const generateID = (rounds) => {
+  const totalTilesRequired = calNumOfTiles(rounds);
+  const numOfIdRequired = totalTilesRequired / 2;
+  const idArray = generatePairIdArray(numOfIdRequired);
+  return idArray;
+};
 
 // export const getImage = async () => {
 //   const url =
