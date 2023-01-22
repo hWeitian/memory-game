@@ -1,0 +1,23 @@
+.tile-close {
+  background-color: #304859;
+  color: #304859;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.tile-close img {
+  display: none;
+}
+
+.tile-open {
+  background-color: #bcced9;
+  color: #000000;
+  text-align: center;
+  margin: auto;
+}
+
+.tile-open img {
+  display: block;
+  object-fit: cover;
+  height: auto;
+}
