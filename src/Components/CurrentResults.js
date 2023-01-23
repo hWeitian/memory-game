@@ -5,10 +5,11 @@ import CountdownTimer from "./CountdownTimer";
 
 class CurrentResults extends React.Component {
   render() {
+    const currentRound = this.props.currentRound - 1;
     const currentPlayerMoves =
-      this.props.players[this.props.currentPlayer - 1]["moves"];
+      this.props.players[this.props.currentPlayer - 1]["moves"][currentRound];
     const currentPlayerMatched =
-      this.props.players[this.props.currentPlayer - 1]["matched"];
+      this.props.players[this.props.currentPlayer - 1]["matched"][currentRound];
     return (
       <>
         <Container>
@@ -25,7 +26,14 @@ class CurrentResults extends React.Component {
             <Grid item xs={4}>
               <CurrentResultsCard
                 title="Time:"
-                count={<CountdownTimer startTimer={this.props.startTimer} />}
+                count={
+                  <CountdownTimer
+                    timer={this.props.timer}
+                    handleTimesUp={this.props.handleTimesUp}
+                    roundStatus={this.props.roundStatus}
+                    currentMoves={currentPlayerMoves}
+                  />
+                }
               />
             </Grid>
           </Grid>
