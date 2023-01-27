@@ -21,3 +21,11 @@
   font-size: calc(10px + 2vmin);
   color: white;
 } */
+
+ul {
+  padding-left: 20px;
+}
+
+ul > li {
+  margin: 10px 0;
+}

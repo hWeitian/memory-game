@@ -21,15 +21,32 @@ class CountdownTimer extends React.Component {
   };
 
   componentDidUpdate() {
-    if (this.state.numOfUpdates === 0 && this.props.roundStatus === "playing") {
+    if (
+      this.state.numOfUpdates === 0 &&
+      this.props.roundStatus === "playing" &&
+      this.props.isModalShown === false
+    ) {
+      // Start timer when the first tile is clicked
       this.setState((prevState) => ({
         numOfUpdates: (prevState.numOfUpdates += 1),
         newRound: false,
       }));
       this.startTimer();
-    } else if (this.props.roundStatus === "win") {
+    } else if (
+      // Pause timer when user wins the round before the timer ends
+      // Pause timer when user opens modal from header
+      this.props.roundStatus === "win" ||
+      this.props.isModalShown === true
+    ) {
       this.pauseTimer();
     } else if (
+      // Resume timer when user close the modal from header
+      this.props.roundStatus === "playing" &&
+      this.props.isModalShown === false
+    ) {
+      this.startTimer();
+    } else if (
+      // Update the timer with new countdown duration when user proceed to the next round
       this.props.roundStatus === "new game" &&
       this.state.newRound === false
     ) {
@@ -38,14 +55,21 @@ class CountdownTimer extends React.Component {
         numOfUpdates: 0,
         newRound: true,
       });
+    } else if (
+      // Restart the timer with the current countdown duration when user restart the current round
+      // Reset the timer when user start a new game
+      (this.props.roundStatus === "start" ||
+        this.props.roundStatus === "restart") &&
+      (this.state.newRound === true || this.state.numOfUpdates === 1)
+    ) {
+      this.pauseTimer();
+      this.setState({
+        date: Date.now() + this.props.timer,
+        numOfUpdates: 0,
+        newRound: false,
+      });
     }
   }
-
-  // componentDidMount(){
-  //   this.setState({
-  //     date: Date.now() + this.props.timer
-  //   });
-  // }
 
   handleComplete = () => {
     this.props.handleTimesUp();

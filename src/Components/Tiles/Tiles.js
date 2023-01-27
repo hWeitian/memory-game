@@ -22,11 +22,14 @@ class Tiles extends React.Component {
               sx={{
                 height: "4.375rem",
                 width: "4.375rem",
-                padding: 0,
+                padding: 1.875,
               }}
               className={this.props.className}
             >
-              <img src={`emoji-images/${this.props.image}`} alt="trees" />
+              <img
+                src={`fontawesome-icons/${this.props.image}`}
+                alt="brand icons"
+              />
             </CardContent>
           </CardActionArea>
         </Card>

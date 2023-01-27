@@ -1,11 +1,14 @@
 import React from "react";
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Typography, Grid, Container } from "@mui/material";
+import { Typography, Grid, Container, Box } from "@mui/material";
 import Board from "./Components/Board";
 import { generateID } from "./utlis";
 import CurrentResults from "./Components/CurrentResults";
-import ResultsModal from "./Components/ResultsModal";
+import Header from "./Components/Header";
+import CustomModal from "./Components/CustomModal";
+import Rules from "./Components/Rules";
+import ResultsContainer from "./Components/ResultsContainer";
 
 const theme = createTheme({
   typography: {
@@ -31,7 +34,8 @@ class App extends React.Component {
       matchedTiles: [],
       disable: "auto",
       roundStatus: "start",
-      showResults: false,
+      displayModal: false,
+      displayModalSource: "default",
       timer: 30000,
     };
   }
@@ -88,7 +92,7 @@ class App extends React.Component {
 
     if (roundCompleted) {
       this.setState({
-        showResults: true,
+        displayModal: true,
         roundStatus: "win",
       });
     }
@@ -147,9 +151,17 @@ class App extends React.Component {
     }
   };
 
-  handleResultsClose = () => {
+  handleModalClose = () => {
     this.setState({
-      showResults: false,
+      displayModal: false,
+      displayModalSource: "default",
+    });
+  };
+
+  handleModalOpen = (source) => {
+    this.setState({
+      displayModal: true,
+      displayModalSource: source,
     });
   };
 
@@ -164,7 +176,7 @@ class App extends React.Component {
     if (currentMatchedTiles !== totalTiles) {
       this.setState({
         roundStatus: "lose",
-        showResults: true,
+        displayModal: true,
       });
     }
   };
@@ -185,8 +197,8 @@ class App extends React.Component {
       matchedTiles: [],
       disable: "auto",
       roundStatus: "new game",
-      showResults: false,
-      timer: (prevState.timer += 20000),
+      displayModal: false,
+      timer: (prevState.timer += 10000),
     }));
   };
 
@@ -197,49 +209,99 @@ class App extends React.Component {
       player["matched"][resultLastIndex] = 0;
       player["moves"][resultLastIndex] = 0;
     });
+    const currentRound = this.state.currentRound;
     this.setState({
+      idArray: generateID(currentRound),
       players: newPlayersArr,
       clickedTiles: [],
       matchedTiles: [],
       disable: "auto",
       roundStatus: "new game",
-      showResults: false,
+      displayModal: false,
+      displayModalSource: "default",
+    });
+  };
+
+  resetGame = () => {
+    this.setState({
+      idArray: generateID(1),
+      currentRound: 1,
+      numOfPlayers: 1,
+      players: [
+        {
+          moves: [0],
+          matched: [0],
+        },
+      ],
+      currentPlayer: 1,
+      clickedTiles: [],
+      matchedTiles: [],
+      disable: "auto",
+      roundStatus: "restart",
+      displayModal: false,
+      displayModalSource: "default",
+      timer: 30000,
     });
   };
 
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <div className="App" style={{ marginTop: "20px" }}>
-          <Container>
-            <CurrentResults
-              players={this.state.players}
-              currentPlayer={this.state.currentPlayer}
-              currentRound={this.state.currentRound}
-              timer={this.state.timer}
-              handleTimesUp={this.handleTimesUp}
-              roundStatus={this.state.roundStatus}
+        <div className="App">
+          <Container sx={{ mt: 2 }}>
+            <Header
+              displayModal={this.handleModalOpen}
+              resetGame={this.resetGame}
             />
-            <Board
-              rounds={this.state.currentRound}
-              updatePlayerInfo={this.updatePlayerInfo}
-              currentPlayer={this.state.currentPlayer}
-              players={this.state.players}
-              idArray={this.state.idArray}
-              handleTilesClicked={this.handleTilesClicked}
-              disable={this.state.disable}
-              matchedTiles={this.state.matchedTiles}
-              clickedTiles={this.state.clickedTiles}
-            />
-            <ResultsModal
-              open={this.state.showResults}
-              handleResultsClose={this.handleResultsClose}
-              players={this.state.players}
-              round={this.state.currentRound}
-              roundStatus={this.state.roundStatus}
-              updateRound={this.updateRound}
-              resetRound={this.resetRound}
-            />
+            <Grid
+              container
+              sx={{ mb: 4.375, mt: 7.5, justifyContent: "center", gap: "20px" }}
+            >
+              {/* <Grid item xs={12} lg={12}> */}
+              <CurrentResults
+                players={this.state.players}
+                currentPlayer={this.state.currentPlayer}
+                currentRound={this.state.currentRound}
+                timer={this.state.timer}
+                handleTimesUp={this.handleTimesUp}
+                roundStatus={this.state.roundStatus}
+                isModalShown={this.state.displayModal}
+              />
+              {/* </Grid> */}
+            </Grid>
+            <Grid container>
+              <Board
+                rounds={this.state.currentRound}
+                updatePlayerInfo={this.updatePlayerInfo}
+                currentPlayer={this.state.currentPlayer}
+                players={this.state.players}
+                idArray={this.state.idArray}
+                handleTilesClicked={this.handleTilesClicked}
+                disable={this.state.disable}
+                matchedTiles={this.state.matchedTiles}
+                clickedTiles={this.state.clickedTiles}
+              />
+            </Grid>
+            <Grid container>
+              <CustomModal
+                open={this.state.displayModal}
+                handleResultsClose={this.handleModalClose}
+                updateRound={this.updateRound}
+                resetRound={this.resetRound}
+                clickSource={this.state.displayModalSource}
+              >
+                {this.state.displayModalSource === "rules" ? (
+                  <Rules />
+                ) : (
+                  <ResultsContainer
+                    players={this.state.players}
+                    round={this.state.currentRound}
+                    roundStatus={this.state.roundStatus}
+                    clickSource={this.state.displayModalSource}
+                  />
+                )}
+              </CustomModal>
+            </Grid>
           </Container>
         </div>
       </ThemeProvider>

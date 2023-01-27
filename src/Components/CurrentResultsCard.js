@@ -12,7 +12,7 @@ class CurrentResultsCard extends React.Component {
         >
           <Typography variant="body1">{this.props.title}</Typography>
           <Typography variant="body1" style={{ fontWeight: 700 }}>
-            {this.props.count === undefined ? 0 : this.props.count}
+            {this.props.children === undefined ? 0 : this.props.children}
           </Typography>
         </Paper>
       </>
