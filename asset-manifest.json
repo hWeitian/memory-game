@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/project1-bootcamp/static/css/main.0cccebcc.css",
-    "main.js": "/project1-bootcamp/static/js/main.42a94a08.js",
+    "main.css": "/project1-bootcamp/static/css/main.c9d0312e.css",
+    "main.js": "/project1-bootcamp/static/js/main.5d6e9ff4.js",
     "static/media/old-republic.svg": "/project1-bootcamp/static/media/old-republic.accda840f3a89f8b7672.svg",
     "static/media/wizards-of-the-coast.svg": "/project1-bootcamp/static/media/wizards-of-the-coast.1097fc33b8af11c51be3.svg",
     "static/media/critical-role.svg": "/project1-bootcamp/static/media/critical-role.82be92df5ffb2c22d68a.svg",
@@ -175,7 +175,6 @@
     "static/media/square-viadeo.svg": "/project1-bootcamp/static/media/square-viadeo.ae76efa03ebbb9aaa573.svg",
     "static/media/github-alt.svg": "/project1-bootcamp/static/media/github-alt.73c627eb25a715f744d7.svg",
     "static/media/joget.svg": "/project1-bootcamp/static/media/joget.a67d6270419fdde25ea1.svg",
-    "index.html": "/project1-bootcamp/index.html",
     "static/media/twitter.svg": "/project1-bootcamp/static/media/twitter.c50d0d87e97eae901473.svg",
     "static/media/spotify.svg": "/project1-bootcamp/static/media/spotify.40eb97c9ea0e1ff3dc11.svg",
     "static/media/canadian-maple-leaf.svg": "/project1-bootcamp/static/media/canadian-maple-leaf.f22af9f8c4627e865599.svg",
@@ -224,6 +223,7 @@
     "static/media/draft2digital.svg": "/project1-bootcamp/static/media/draft2digital.c246368f1ae5087f910d.svg",
     "static/media/wikipedia-w.svg": "/project1-bootcamp/static/media/wikipedia-w.41733832492c5da38ad6.svg",
     "static/media/accessible-icon.svg": "/project1-bootcamp/static/media/accessible-icon.e6389ddb4364aab62828.svg",
+    "index.html": "/project1-bootcamp/index.html",
     "static/media/square-odnoklassniki.svg": "/project1-bootcamp/static/media/square-odnoklassniki.631284151a00f3e21143.svg",
     "static/media/dev.svg": "/project1-bootcamp/static/media/dev.d1212e9999e87565cede.svg",
     "static/media/vaadin.svg": "/project1-bootcamp/static/media/vaadin.f6f77ad4a51a8361ded0.svg",
@@ -468,11 +468,11 @@
     "static/media/flipboard.svg": "/project1-bootcamp/static/media/flipboard.9228f0db5a53b297f4c6.svg",
     "static/media/yandex-international.svg": "/project1-bootcamp/static/media/yandex-international.68884555d327f54b086d.svg",
     "static/media/houzz.svg": "/project1-bootcamp/static/media/houzz.53be97e87c2c56932e34.svg",
-    "main.0cccebcc.css.map": "/project1-bootcamp/static/css/main.0cccebcc.css.map",
-    "main.42a94a08.js.map": "/project1-bootcamp/static/js/main.42a94a08.js.map"
+    "main.c9d0312e.css.map": "/project1-bootcamp/static/css/main.c9d0312e.css.map",
+    "main.5d6e9ff4.js.map": "/project1-bootcamp/static/js/main.5d6e9ff4.js.map"
   },
   "entrypoints": [
-    "static/css/main.0cccebcc.css",
-    "static/js/main.42a94a08.js"
+    "static/css/main.c9d0312e.css",
+    "static/js/main.5d6e9ff4.js"
   ]
 }
