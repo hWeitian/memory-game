@@ -39,6 +39,7 @@ class Header extends React.Component {
   };
 
   handleMobileMenuClick = (source) => {
+    console.log("click");
     this.handleCloseNavMenu();
 
     if (source === "reset-game") {

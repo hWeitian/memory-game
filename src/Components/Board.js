@@ -23,7 +23,8 @@ class Board extends React.Component {
                     id={obj["uniqueId"]}
                     visibility="visible"
                     onClick={this.handleClick}
-                    className="tile-matched"
+                    className="animate__pulse animate__fast tile-matched"
+                    // className="tile-matched"
                     pointerEvents={this.props.disable}
                     image={obj["image"]}
                   />
@@ -33,7 +34,8 @@ class Board extends React.Component {
                     id={obj["uniqueId"]}
                     visibility="visible"
                     onClick={this.handleClick}
-                    className="tile-open"
+                    className="animate__flipInY tile-open"
+                    // className="tile-open"
                     pointerEvents="none"
                     image={obj["image"]}
                   />
@@ -43,6 +45,7 @@ class Board extends React.Component {
                     id={obj["uniqueId"]}
                     visibility="visible"
                     onClick={this.handleClick}
+                    // className="animate__bounceIn tile-close"
                     className="tile-close"
                     pointerEvents={this.props.disable}
                     image={obj["image"]}

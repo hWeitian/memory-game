@@ -25,14 +25,12 @@ class CurrentResults extends React.Component {
                 backgroundColor: "#FDA214",
                 color: "#FCFCFC",
                 borderRadius: "26px",
-                py: 0.5,
+                p: { xs: 0.5, md: 1 },
               }}
             >
               <Typography
                 variant="h6"
-                // sx={{
-                //   typography: { xs: "h6", md: "h6" },
-                // }}
+                // sx={{ typography: { xs: "h6", lg: "h6" } }}
                 style={{ fontWeight: 700 }}
               >
                 Round {currentRound}

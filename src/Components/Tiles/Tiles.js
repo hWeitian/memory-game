@@ -1,6 +1,6 @@
 import React from "react";
 import "./Tiles.css";
-import { Card, CardActionArea, CardContent, Grid, Box } from "@mui/material";
+import { Card, CardActionArea, CardContent } from "@mui/material";
 
 class Tiles extends React.Component {
   handleClick = () => {
@@ -20,6 +20,8 @@ class Tiles extends React.Component {
             flex: "1 0 23%",
           }}
           className={this.props.className}
+          className={`animate__animated ${this.props.className}`}
+          // className={`${this.state.className} ${this.props.className}`}
         >
           <CardActionArea
             sx={{ display: "flex", height: "100%", width: "100%" }}
@@ -32,7 +34,7 @@ class Tiles extends React.Component {
               }}
             >
               <img
-                src={`project1-bootcamp/fontawesome-icons/${this.props.image}`}
+                src={require(`../../fontawesome-icons/${this.props.image}`)}
                 alt="brand icons"
               />
             </CardContent>

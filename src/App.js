@@ -36,7 +36,8 @@ class App extends React.Component {
       roundStatus: "start",
       displayModal: false,
       displayModalSource: "default",
-      timer: 30000,
+      // timer: 1000000,
+      timer: 40000,
     };
   }
 
@@ -138,9 +139,9 @@ class App extends React.Component {
       }));
       let isMatched = this.checkMatched(id);
       if (isMatched) {
-        setTimeout(() => this.updateMatched(id), 400);
+        setTimeout(() => this.updateMatched(id), 500);
       } else {
-        setTimeout(() => this.clearClickedTiles(), 500);
+        setTimeout(() => this.clearClickedTiles(), 900);
       }
     } else {
       this.setState((prevState) => ({
