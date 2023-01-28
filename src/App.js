@@ -138,9 +138,9 @@ class App extends React.Component {
       }));
       let isMatched = this.checkMatched(id);
       if (isMatched) {
-        setTimeout(() => this.updateMatched(id), 600);
+        setTimeout(() => this.updateMatched(id), 400);
       } else {
-        setTimeout(() => this.clearClickedTiles(), 800);
+        setTimeout(() => this.clearClickedTiles(), 500);
       }
     } else {
       this.setState((prevState) => ({
@@ -248,7 +248,7 @@ class App extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <div className="App">
-          <Container sx={{ mt: 2 }}>
+          <Container sx={{ mt: 2, pb: 10 }}>
             <Header
               displayModal={this.handleModalOpen}
               resetGame={this.resetGame}
@@ -257,7 +257,6 @@ class App extends React.Component {
               container
               sx={{ mb: 4.375, mt: 7.5, justifyContent: "center", gap: "20px" }}
             >
-              {/* <Grid item xs={12} lg={12}> */}
               <CurrentResults
                 players={this.state.players}
                 currentPlayer={this.state.currentPlayer}
@@ -267,7 +266,6 @@ class App extends React.Component {
                 roundStatus={this.state.roundStatus}
                 isModalShown={this.state.displayModal}
               />
-              {/* </Grid> */}
             </Grid>
             <Grid container>
               <Board

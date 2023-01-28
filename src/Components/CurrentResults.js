@@ -18,32 +18,39 @@ class CurrentResults extends React.Component {
     return (
       <>
         <Grid container sx={{ justifyContent: "center" }}>
-          <Grid item xs={4} sm={3} md={2}>
+          <Grid item xs={8} sm={3} md={2}>
             <Paper
               elevation={3}
               sx={{
                 backgroundColor: "#FDA214",
                 color: "#FCFCFC",
                 borderRadius: "26px",
+                py: 0.5,
               }}
             >
-              <Typography variant="h6" sx={{ fontWeight: 700 }}>
+              <Typography
+                variant="h6"
+                // sx={{
+                //   typography: { xs: "h6", md: "h6" },
+                // }}
+                style={{ fontWeight: 700 }}
+              >
                 Round {currentRound}
               </Typography>
             </Paper>
           </Grid>
         </Grid>
-        <Grid item xs={3} sm={2} md={1}>
+        <Grid item xs={3} sm={2}>
           <CurrentResultsCard title="Matched:">
             {currentPlayerMatched}
           </CurrentResultsCard>
         </Grid>
-        <Grid item xs={3} sm={2} md={1}>
+        <Grid item xs={3} sm={2}>
           <CurrentResultsCard title="Moves:">
             {currentPlayerMoves}
           </CurrentResultsCard>
         </Grid>
-        <Grid item xs={3} sm={2} md={1}>
+        <Grid item xs={3} sm={2}>
           <CurrentResultsCard title="Time:">
             <CountdownTimer
               timer={this.props.timer}

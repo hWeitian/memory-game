@@ -2,17 +2,21 @@
   "name": "project1-bootcamp",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://hweitian.github.io/project1-bootcamp/",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.5",
+    "gh-pages": "^5.0.0",
     "react": "^18.1.0",
     "react-countdown": "^2.3.5",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },

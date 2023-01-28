@@ -1,6 +1,6 @@
 import React from "react";
 import "./Tiles.css";
-import { Card, CardActionArea, CardContent, Grid } from "@mui/material";
+import { Card, CardActionArea, CardContent, Grid, Box } from "@mui/material";
 
 class Tiles extends React.Component {
   handleClick = () => {
@@ -15,19 +15,24 @@ class Tiles extends React.Component {
           sx={{
             visibility: this.props.visibility,
             pointerEvents: this.props.pointerEvents,
+            borderRadius: "10px",
+            height: "90px",
+            flex: "1 0 23%",
           }}
+          className={this.props.className}
         >
-          <CardActionArea>
+          <CardActionArea
+            sx={{ display: "flex", height: "100%", width: "100%" }}
+          >
             <CardContent
               sx={{
-                height: "4.375rem",
-                width: "4.375rem",
-                padding: 1.875,
+                height: "100%",
+                width: "100%",
+                padding: 0,
               }}
-              className={this.props.className}
             >
               <img
-                src={`fontawesome-icons/${this.props.image}`}
+                src={`project1-bootcamp/fontawesome-icons/${this.props.image}`}
                 alt="brand icons"
               />
             </CardContent>
