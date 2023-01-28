@@ -20,7 +20,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      idArray: generateID(1),
+      idArray: generateID(3),
       currentRound: 1,
       numOfPlayers: 1,
       players: [
@@ -37,7 +37,7 @@ class App extends React.Component {
       displayModal: false,
       displayModalSource: "default",
       // timer: 1000000,
-      timer: 40000,
+      timer: 10000,
     };
   }
 
@@ -287,10 +287,17 @@ class App extends React.Component {
                 handleResultsClose={this.handleModalClose}
                 updateRound={this.updateRound}
                 resetRound={this.resetRound}
+                resetGame={this.resetGame}
                 clickSource={this.state.displayModalSource}
               >
                 {this.state.displayModalSource === "rules" ? (
                   <Rules />
+                ) : this.state.displayModalSource === "reset-game" ? (
+                  <Typography>
+                    This will delete all game records.
+                    <br />
+                    Are you sure you want to continue?
+                  </Typography>
                 ) : (
                   <ResultsContainer
                     players={this.state.players}

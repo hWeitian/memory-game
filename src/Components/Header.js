@@ -39,14 +39,9 @@ class Header extends React.Component {
   };
 
   handleMobileMenuClick = (source) => {
-    console.log("click");
     this.handleCloseNavMenu();
 
-    if (source === "reset-game") {
-      this.props.resetGame();
-    } else {
-      this.props.displayModal(source);
-    }
+    this.handleDisplayModal(source);
   };
 
   render() {
@@ -94,7 +89,7 @@ class Header extends React.Component {
                         <CustomButton
                           className="btn btn-orange"
                           style={{ width: "8rem" }}
-                          onClick={this.props.resetGame}
+                          onClick={() => this.handleDisplayModal("reset-game")}
                         >
                           New Game
                         </CustomButton>

@@ -20,6 +20,8 @@ class CustomModal extends React.Component {
   handleClose = (event, reason) => {
     if (reason === "backdropClick" && this.props.clickSource === "default") {
       return;
+    } else if (reason === "reset-game") {
+      this.props.resetGame();
     }
     this.props.handleResultsClose();
   };
@@ -38,9 +40,30 @@ class CustomModal extends React.Component {
         >
           <Box sx={style}>
             {this.props.children}
-            {this.props.clickSource === "rules" ||
-            this.props.clickSource === "results-navbar" ||
-            this.props.clickSource === "mobile-menu" ? (
+            {this.props.clickSource === "reset-game" ? (
+              <>
+                <Grid container justifyContent="space-around" sx={{ mt: 2 }}>
+                  <Grid item xs={5}>
+                    <CustomButton
+                      onClick={this.handleClose}
+                      className="btn btn-light-blue"
+                    >
+                      No
+                    </CustomButton>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <CustomButton
+                      onClick={() => this.handleClose("nil", "reset-game")}
+                      className="btn btn-orange"
+                    >
+                      Yes
+                    </CustomButton>
+                  </Grid>
+                </Grid>
+              </>
+            ) : this.props.clickSource === "rules" ||
+              this.props.clickSource === "results-navbar" ||
+              this.props.clickSource === "mobile-menu" ? (
               <CustomButton
                 onClick={this.handleClose}
                 className="btn btn-orange"

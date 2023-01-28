@@ -76,7 +76,7 @@ class CountdownTimer extends React.Component {
   };
 
   render() {
-    const Completionist = () => <span>Time's Up!</span>;
+    const Completionist = () => <span>00:00</span>;
 
     const renderer = (props) => {
       if (props.completed) {

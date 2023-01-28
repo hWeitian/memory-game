@@ -1,6 +1,7 @@
 import React from "react";
 import "./Tiles.css";
-import { Card, CardActionArea, CardContent } from "@mui/material";
+import { Card, CardActionArea, CardContent, styled } from "@mui/material";
+import "animate.css";
 
 class Tiles extends React.Component {
   handleClick = () => {
@@ -17,11 +18,9 @@ class Tiles extends React.Component {
             pointerEvents: this.props.pointerEvents,
             borderRadius: "10px",
             height: "90px",
-            flex: "1 0 23%",
+            flex: { xs: "0 0 23%", md: this.props.flex },
           }}
-          className={this.props.className}
           className={`animate__animated ${this.props.className}`}
-          // className={`${this.state.className} ${this.props.className}`}
         >
           <CardActionArea
             sx={{ display: "flex", height: "100%", width: "100%" }}

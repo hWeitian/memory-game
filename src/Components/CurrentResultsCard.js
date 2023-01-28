@@ -23,7 +23,7 @@ class CurrentResultsCard extends React.Component {
           style={{ backgroundColor: "#6395B8", color: "#FCFCFC" }}
           onClick={this.handleClick}
         >
-          <Grid container justifyContent="space-between" p={{ xs: 1, md: 2 }}>
+          <Grid container justifyContent="space-between" p={{ xs: 1, md: 1.5 }}>
             <Grid item xs={12} md={6}>
               <AlignLeft>
                 <Typography sx={{ typography: { xs: "body1", sm: "h6" } }}>
