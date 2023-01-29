@@ -199,7 +199,7 @@ class App extends React.Component {
       disable: "auto",
       roundStatus: "new game",
       displayModal: false,
-      timer: (prevState.timer += 20000),
+      timer: (prevState.timer += 15000),
     }));
   };
 
@@ -289,6 +289,7 @@ class App extends React.Component {
                 resetRound={this.resetRound}
                 resetGame={this.resetGame}
                 clickSource={this.state.displayModalSource}
+                roundStatus={this.state.roundStatus}
               >
                 {this.state.displayModalSource === "rules" ? (
                   <Rules />

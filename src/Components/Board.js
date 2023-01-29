@@ -9,15 +9,19 @@ class Board extends React.Component {
   };
 
   calculateLayout = (numOfTiles) => {
+    const currentRound = this.props.rounds;
     let width = 6;
     let flex = "1 0 23%";
-    if (numOfTiles > 12) {
+    if (currentRound > 2) {
       if (numOfTiles % 5 === 0) {
         width = 8;
         flex = "1 0 18%";
       } else if (numOfTiles % 6 === 0) {
         width = 9;
         flex = "1 0 14%";
+      } else if (numOfTiles % 7 === 0) {
+        width = 11;
+        flex = "1 0 12%";
       } else if (numOfTiles % 8 === 0) {
         width = 11;
         flex = "1 0 11%";

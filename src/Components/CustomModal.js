@@ -70,7 +70,15 @@ class CustomModal extends React.Component {
               >
                 Close
               </CustomButton>
-            ) : this.props.clickSource === "mobile-menu" ? null : (
+            ) : this.props.roundStatus === "lose" ? (
+              <CustomButton
+                onClick={this.props.resetRound}
+                className="btn btn-orange"
+                style={{ marginBottom: "0.685rem" }}
+              >
+                Restart
+              </CustomButton>
+            ) : (
               <>
                 <CustomButton
                   onClick={this.props.resetRound}
