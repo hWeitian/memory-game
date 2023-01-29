@@ -3,7 +3,11 @@ import "./CustomButton.css";
 
 class CustomButton extends React.Component {
   handleClick = () => {
-    this.props.onClick();
+    if (this.props.onClick === null) {
+      return;
+    } else {
+      this.props.onClick();
+    }
   };
 
   render() {
