@@ -20,7 +20,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      idArray: generateID(3),
+      idArray: generateID(1),
       currentRound: 1,
       numOfPlayers: 1,
       players: [
@@ -37,7 +37,7 @@ class App extends React.Component {
       displayModal: false,
       displayModalSource: "default",
       // timer: 1000000,
-      timer: 10000,
+      timer: 40000,
     };
   }
 
@@ -141,7 +141,7 @@ class App extends React.Component {
       if (isMatched) {
         setTimeout(() => this.updateMatched(id), 500);
       } else {
-        setTimeout(() => this.clearClickedTiles(), 900);
+        setTimeout(() => this.clearClickedTiles(), 700);
       }
     } else {
       this.setState((prevState) => ({
@@ -199,7 +199,7 @@ class App extends React.Component {
       disable: "auto",
       roundStatus: "new game",
       displayModal: false,
-      timer: (prevState.timer += 10000),
+      timer: (prevState.timer += 20000),
     }));
   };
 

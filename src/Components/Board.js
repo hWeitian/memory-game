@@ -18,6 +18,9 @@ class Board extends React.Component {
       } else if (numOfTiles % 6 === 0) {
         width = 9;
         flex = "1 0 14%";
+      } else if (numOfTiles % 8 === 0) {
+        width = 11;
+        flex = "1 0 11%";
       }
     }
     return [width, flex];

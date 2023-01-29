@@ -2,8 +2,6 @@
   background-color: #304859 !important;
   color: #304859 !important;
   border: 1px solid white;
-  /* transform: rotateY(180deg);
-  transition: transform 1s ease-in-out 0s !important; */
 }
 
 .tile-close img {
@@ -13,8 +11,6 @@
 .tile-open {
   background-color: #fda214 !important;
   color: #000000 !important;
-  /* transform: rotateY(180deg);
-  transition: transform 1s ease-in-out 0s !important; */
 }
 
 .tile-open img {
@@ -34,10 +30,3 @@
 .tile-matched img {
   visibility: hidden;
 }
-
-/* .animate__animated.animate__flipInY {
-  --animate-duration: 0.8s;
-}
-.animate__animated.animate__shakeX {
-  --animate-duration: 0.4s;
-} */

@@ -83,7 +83,7 @@ class CustomModal extends React.Component {
                   onClick={this.props.updateRound}
                   className="btn btn-orange"
                 >
-                  Next Round
+                  Next Level
                 </CustomButton>
               </>
             )}

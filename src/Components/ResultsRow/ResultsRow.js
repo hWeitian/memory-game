@@ -19,7 +19,7 @@ class ResultsRow extends React.Component {
                 textAlign: "left",
               }}
             >
-              {`Round ${this.props.round}`}
+              {`Level ${this.props.round}`}
             </Typography>
           </Grid>
           <Grid item xs={4}>

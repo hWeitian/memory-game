@@ -29,7 +29,7 @@ class CurrentResults extends React.Component {
               }}
             >
               <Typography variant="h6" style={{ fontWeight: 700 }}>
-                Round {currentRound}
+                Level {currentRound}
               </Typography>
             </Paper>
           </Grid>
