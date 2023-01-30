@@ -3,7 +3,7 @@ import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Typography, Grid, Container, Box } from "@mui/material";
 import Board from "./Components/Board";
-import { generateID } from "./utlis";
+import { generateID, updateWinner, resetPlayersInfo } from "./utlis";
 import CurrentResults from "./Components/CurrentResults";
 import Header from "./Components/Header";
 import CustomModal from "./Components/CustomModal";
@@ -28,6 +28,7 @@ class App extends React.Component {
         {
           moves: [0],
           matched: [0],
+          roundsWon: 0,
         },
       ],
       currentPlayer: 1,
@@ -37,7 +38,9 @@ class App extends React.Component {
       roundStatus: "selection",
       displayModal: false,
       displayModalSource: "default",
+      roundWinners: [],
       // timer: 1000000,
+      // timer: 10000,
       timer: 40000,
     };
   }
@@ -90,13 +93,30 @@ class App extends React.Component {
   };
 
   updateMatched = (id) => {
+    this.updatePlayerInfo(this.state.currentPlayer, "matched");
     const roundCompleted = this.checkRoundCompleted();
 
     if (roundCompleted) {
-      this.setState({
-        displayModal: true,
-        roundStatus: "win",
-      });
+      if (
+        this.state.numOfPlayers > 1 &&
+        this.state.currentPlayer === this.state.numOfPlayers
+      ) {
+        const [winners, newPlayersArr] = updateWinner(
+          this.state.currentRound,
+          this.state.players
+        );
+        this.setState({
+          players: newPlayersArr,
+          displayModal: true,
+          roundStatus: "win",
+          roundWinners: winners,
+        });
+      } else {
+        this.setState({
+          displayModal: true,
+          roundStatus: "win",
+        });
+      }
     }
 
     this.setState((prevState) => ({
@@ -104,7 +124,6 @@ class App extends React.Component {
       clickedTiles: [],
       disable: "auto",
     }));
-    this.updatePlayerInfo(this.state.currentPlayer, "matched");
   };
 
   checkRoundCompleted = () => {
@@ -194,6 +213,7 @@ class App extends React.Component {
     this.setState((prevState) => ({
       idArray: generateID(prevState.currentRound + 1),
       currentRound: (prevState.currentRound += 1),
+      currentPlayer: 1,
       players: newPlayersArr,
       clickedTiles: [],
       matchedTiles: [],
@@ -205,12 +225,11 @@ class App extends React.Component {
   };
 
   resetRound = () => {
-    const newPlayersArr = [...this.state.players];
-    const resultLastIndex = this.state.players[0]["matched"].length - 1;
-    newPlayersArr.forEach((player) => {
-      player["matched"][resultLastIndex] = 0;
-      player["moves"][resultLastIndex] = 0;
-    });
+    const newPlayersArr = resetPlayersInfo(
+      [...this.state.players],
+      this.state.roundWinners
+    );
+
     const currentRound = this.state.currentRound;
     this.setState({
       idArray: generateID(currentRound),
@@ -221,6 +240,7 @@ class App extends React.Component {
       roundStatus: "new game",
       displayModal: false,
       displayModalSource: "default",
+      currentPlayer: 1,
     });
   };
 
@@ -233,27 +253,29 @@ class App extends React.Component {
         {
           moves: [0],
           matched: [0],
+          roundsWon: 0,
         },
       ],
       currentPlayer: 1,
       clickedTiles: [],
       matchedTiles: [],
       disable: "auto",
-      roundStatus: "restart",
+      roundStatus: "selection",
       displayModal: false,
       displayModalSource: "default",
-      timer: 30000,
+      roundWinners: [],
+      timer: 40000,
     });
   };
 
   setNumOfPlayers = (num) => {
-    const player = {
-      moves: [0],
-      matched: [0],
-    };
     const playersArr = [];
     for (let i = 0; i < num; i += 1) {
-      playersArr.push(player);
+      playersArr.push({
+        moves: [0],
+        matched: [0],
+        roundsWon: 0,
+      });
     }
     num = Number(num);
     this.setState({
@@ -261,6 +283,20 @@ class App extends React.Component {
       players: playersArr,
       roundStatus: "start",
     });
+  };
+
+  switchPlayer = () => {
+    this.setState((prevState) => ({
+      idArray: generateID(prevState.currentRound),
+      currentRound: prevState.currentRound,
+      currentPlayer: (prevState.currentPlayer += 1),
+      clickedTiles: [],
+      matchedTiles: [],
+      disable: "auto",
+      roundStatus: "new game",
+      displayModal: false,
+      timer: prevState.timer,
+    }));
   };
 
   render() {
@@ -315,8 +351,11 @@ class App extends React.Component {
                     updateRound={this.updateRound}
                     resetRound={this.resetRound}
                     resetGame={this.resetGame}
+                    switchPlayer={this.switchPlayer}
                     clickSource={this.state.displayModalSource}
                     roundStatus={this.state.roundStatus}
+                    numOfPlayers={this.state.numOfPlayers}
+                    currentPlayer={this.state.currentPlayer}
                   >
                     {this.state.displayModalSource === "rules" ? (
                       <Rules />
@@ -329,9 +368,12 @@ class App extends React.Component {
                     ) : (
                       <ResultsContainer
                         players={this.state.players}
+                        numOfPlayers={this.state.numOfPlayers}
                         round={this.state.currentRound}
                         roundStatus={this.state.roundStatus}
                         clickSource={this.state.displayModalSource}
+                        currentPlayer={this.state.currentPlayer}
+                        roundWinners={this.state.roundWinners}
                       />
                     )}
                   </CustomModal>

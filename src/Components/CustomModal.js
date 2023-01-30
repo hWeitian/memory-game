@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, Box, Typography, Grid } from "@mui/material";
 import CustomButton from "./CustomButton/CustomButton";
+import { determineWinner } from "../utlis";
 
 const style = {
   position: "absolute",
@@ -24,6 +25,15 @@ class CustomModal extends React.Component {
       this.props.resetGame();
     }
     this.props.handleResultsClose();
+  };
+
+  handleClick = () => {
+    if (this.props.currentPlayer < this.props.numOfPlayers) {
+      this.props.switchPlayer();
+    } else {
+      // determineWinner(this.props.currentRound, this.props.players);
+      this.props.updateRound();
+    }
   };
 
   render() {
@@ -70,7 +80,8 @@ class CustomModal extends React.Component {
               >
                 Close
               </CustomButton>
-            ) : this.props.roundStatus === "lose" ? (
+            ) : this.props.roundStatus === "lose" &&
+              this.props.numOfPlayers === 1 ? (
               <CustomButton
                 onClick={this.props.resetRound}
                 className="btn btn-orange"
@@ -80,18 +91,24 @@ class CustomModal extends React.Component {
               </CustomButton>
             ) : (
               <>
+                {this.props.currentPlayer === this.props.numOfPlayers ? (
+                  <CustomButton
+                    onClick={this.props.resetRound}
+                    className="btn btn-light-blue"
+                    style={{ marginBottom: "0.685rem" }}
+                  >
+                    Restart
+                  </CustomButton>
+                ) : null}
                 <CustomButton
-                  onClick={this.props.resetRound}
-                  className="btn btn-light-blue"
-                  style={{ marginBottom: "0.685rem" }}
-                >
-                  Restart
-                </CustomButton>
-                <CustomButton
-                  onClick={this.props.updateRound}
+                  onClick={this.handleClick}
                   className="btn btn-orange"
                 >
-                  Next Level
+                  {this.props.numOfPlayers === 1
+                    ? "Next Level"
+                    : this.props.currentPlayer < this.props.numOfPlayers
+                    ? "Next Player"
+                    : "Next Level"}
                 </CustomButton>
               </>
             )}

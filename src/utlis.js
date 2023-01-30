@@ -70,11 +70,109 @@ export const generateID = (rounds) => {
   return idArray;
 };
 
-// export const getImage = async () => {
-//   const url =
-//     "https://pixabay.com/api/?key=33005366-cde6083ff2884674f769fc4c5&q=yellow+flowers&image_type=photo&pretty=true&per_page=200";
-//   const response = await fetch(url);
-//   const data = await response.json();
+const findMaxNum = (arr) => {
+  let maxNum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    let currentNum = Number(arr[i]);
+    if (currentNum > maxNum) {
+      maxNum = currentNum;
+    }
+  }
+  return maxNum;
+};
 
-//   console.log(data);
-// };
+const findMinNum = (arr) => {
+  let minNum = arr[0];
+  for (let i = 0; i < arr.length; i += 1) {
+    let currentNum = Number(arr[i]);
+    if (currentNum < minNum) {
+      minNum = currentNum;
+    }
+  }
+  return minNum;
+};
+
+const findIndexOfMaxNum = (arr) => {
+  const maxNum = findMaxNum(arr);
+  const indexArr = [];
+  arr.forEach((num, index) => {
+    if (num === maxNum) {
+      indexArr.push(index);
+    }
+  });
+  return indexArr;
+};
+
+const findIndexOfMinNum = (arr) => {
+  const minNum = findMinNum(arr);
+  const indexArr = [];
+  arr.forEach((num, index) => {
+    if (num === minNum) {
+      indexArr.push(index);
+    }
+  });
+  return indexArr;
+};
+
+export const determineWinner = (currentRound, playersArr) => {
+  let results = [];
+  const currentRoundIndex = currentRound - 1;
+
+  const matchedCounts = playersArr.map((player) => {
+    return player["matched"][currentRoundIndex];
+  });
+
+  const matchedCountsIndex = findIndexOfMaxNum(matchedCounts);
+  if (matchedCountsIndex.length > 1) {
+    const movesCounts = matchedCountsIndex.map((count) => {
+      return playersArr[count]["moves"][currentRoundIndex];
+    });
+    const movesCountsIndex = findIndexOfMinNum(movesCounts);
+    results = movesCountsIndex.map((count) => count + 1);
+    return results;
+  } else {
+    results = matchedCountsIndex.map((count) => count + 1);
+    return results;
+  }
+};
+
+export const generateResults = (winnersArr) => {
+  let results = "";
+  if (winnersArr.length > 1) {
+    results = `It's a tie!`;
+  } else {
+    results = `Player ${winnersArr[0]} wins!`;
+  }
+  return results;
+};
+
+export const updateWinner = (currentRound, playersArr) => {
+  const winners = determineWinner(currentRound, playersArr);
+  const newPlayersArr = [...playersArr];
+  winners.forEach((winner) => {
+    let winnerIndex = winner - 1;
+    newPlayersArr[winnerIndex]["roundsWon"] += 1;
+  });
+  return [winners, newPlayersArr];
+};
+
+export const generateRoundsArr = (num) => {
+  const roundsArr = [];
+  for (let i = 1; i <= num; i += 1) {
+    roundsArr.push(i);
+  }
+  return roundsArr;
+};
+
+export const resetPlayersInfo = (playerArr, roundWinners) => {
+  playerArr.forEach((player, index) => {
+    let lastIndex = player["moves"].length - 1;
+    player["matched"][lastIndex] = 0;
+    player["moves"][lastIndex] = 0;
+    if (roundWinners.includes(index + 1)) {
+      player["roundsWon"] -= 1;
+    }
+  });
+
+  return playerArr;
+};

@@ -19,7 +19,9 @@ class ResultsRow extends React.Component {
                 textAlign: "left",
               }}
             >
-              {`Level ${this.props.round}`}
+              {this.props.multiplayer
+                ? `Player ${this.props.round}`
+                : `Level ${this.props.round}`}
             </Typography>
           </Grid>
           <Grid item xs={4}>
