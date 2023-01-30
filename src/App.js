@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Typography, Grid, Container, Box } from "@mui/material";
+import { Typography, Grid, Container } from "@mui/material";
 import Board from "./Components/Board";
 import { generateID, updateWinner, resetPlayersInfo } from "./utlis";
 import CurrentResults from "./Components/CurrentResults";
@@ -10,6 +10,7 @@ import CustomModal from "./Components/CustomModal";
 import Rules from "./Components/Rules";
 import ResultsContainer from "./Components/ResultsContainer";
 import PlayersSelection from "./Components/PlayersSelection";
+import MultiplayerScore from "./Components/MultiplayerScore";
 
 const theme = createTheme({
   typography: {
@@ -306,7 +307,7 @@ class App extends React.Component {
           <PlayersSelection setNumOfPlayers={this.setNumOfPlayers} />
         ) : (
           <>
-            <Container sx={{ mt: 2, pb: 10 }}>
+            <Container sx={{ mt: 2, pb: 5 }}>
               <div className="App">
                 <Header
                   displayModal={this.handleModalOpen}
@@ -342,6 +343,12 @@ class App extends React.Component {
                     disable={this.state.disable}
                     matchedTiles={this.state.matchedTiles}
                     clickedTiles={this.state.clickedTiles}
+                  />
+                </Grid>
+                <Grid container mt={15} p={3}>
+                  <MultiplayerScore
+                    players={this.state.players}
+                    currentPlayer={this.state.currentPlayer}
                   />
                 </Grid>
                 <Grid container>

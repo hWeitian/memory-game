@@ -1,7 +1,6 @@
 import React from "react";
-import { Modal, Box, Typography, Grid } from "@mui/material";
+import { Modal, Box, Grid } from "@mui/material";
 import CustomButton from "./CustomButton/CustomButton";
-import { determineWinner } from "../utlis";
 
 const style = {
   position: "absolute",
