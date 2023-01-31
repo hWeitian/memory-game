@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/project1-bootcamp/static/css/main.182d5ef6.css",
-    "main.js": "/project1-bootcamp/static/js/main.c0699fb8.js",
+    "main.js": "/project1-bootcamp/static/js/main.a08e4ede.js",
     "static/media/old-republic.svg": "/project1-bootcamp/static/media/old-republic.accda840f3a89f8b7672.svg",
     "static/media/wizards-of-the-coast.svg": "/project1-bootcamp/static/media/wizards-of-the-coast.1097fc33b8af11c51be3.svg",
     "static/media/critical-role.svg": "/project1-bootcamp/static/media/critical-role.82be92df5ffb2c22d68a.svg",
@@ -188,6 +188,7 @@
     "static/media/meta.svg": "/project1-bootcamp/static/media/meta.91227385a167a22f0b9b.svg",
     "static/media/yelp.svg": "/project1-bootcamp/static/media/yelp.28444621f89c1dbcc211.svg",
     "static/media/medrt.svg": "/project1-bootcamp/static/media/medrt.7033abc6beae040b3ee2.svg",
+    "index.html": "/project1-bootcamp/index.html",
     "static/media/hubspot.svg": "/project1-bootcamp/static/media/hubspot.dba2566c46eb75c4c740.svg",
     "static/media/sellcast.svg": "/project1-bootcamp/static/media/sellcast.d0af71b05ae26ed3d5f4.svg",
     "static/media/sith.svg": "/project1-bootcamp/static/media/sith.65e8401ffc5c37e2e854.svg",
@@ -210,7 +211,6 @@
     "static/media/draft2digital.svg": "/project1-bootcamp/static/media/draft2digital.c246368f1ae5087f910d.svg",
     "static/media/wikipedia-w.svg": "/project1-bootcamp/static/media/wikipedia-w.41733832492c5da38ad6.svg",
     "static/media/accessible-icon.svg": "/project1-bootcamp/static/media/accessible-icon.e6389ddb4364aab62828.svg",
-    "index.html": "/project1-bootcamp/index.html",
     "static/media/dev.svg": "/project1-bootcamp/static/media/dev.d1212e9999e87565cede.svg",
     "static/media/vaadin.svg": "/project1-bootcamp/static/media/vaadin.f6f77ad4a51a8361ded0.svg",
     "static/media/asymmetrik.svg": "/project1-bootcamp/static/media/asymmetrik.f5b2f5ca6350971b56fb.svg",
@@ -442,10 +442,10 @@
     "static/media/yandex-international.svg": "/project1-bootcamp/static/media/yandex-international.68884555d327f54b086d.svg",
     "static/media/houzz.svg": "/project1-bootcamp/static/media/houzz.53be97e87c2c56932e34.svg",
     "main.182d5ef6.css.map": "/project1-bootcamp/static/css/main.182d5ef6.css.map",
-    "main.c0699fb8.js.map": "/project1-bootcamp/static/js/main.c0699fb8.js.map"
+    "main.a08e4ede.js.map": "/project1-bootcamp/static/js/main.a08e4ede.js.map"
   },
   "entrypoints": [
     "static/css/main.182d5ef6.css",
-    "static/js/main.c0699fb8.js"
+    "static/js/main.a08e4ede.js"
   ]
 }
