@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/project1-bootcamp/static/css/main.182d5ef6.css",
-    "main.js": "/project1-bootcamp/static/js/main.6ccf10d7.js",
+    "main.js": "/project1-bootcamp/static/js/main.7f8b6743.js",
     "static/media/old-republic.svg": "/project1-bootcamp/static/media/old-republic.accda840f3a89f8b7672.svg",
     "static/media/wizards-of-the-coast.svg": "/project1-bootcamp/static/media/wizards-of-the-coast.1097fc33b8af11c51be3.svg",
     "static/media/critical-role.svg": "/project1-bootcamp/static/media/critical-role.82be92df5ffb2c22d68a.svg",
@@ -442,10 +442,10 @@
     "static/media/yandex-international.svg": "/project1-bootcamp/static/media/yandex-international.68884555d327f54b086d.svg",
     "static/media/houzz.svg": "/project1-bootcamp/static/media/houzz.53be97e87c2c56932e34.svg",
     "main.182d5ef6.css.map": "/project1-bootcamp/static/css/main.182d5ef6.css.map",
-    "main.6ccf10d7.js.map": "/project1-bootcamp/static/js/main.6ccf10d7.js.map"
+    "main.7f8b6743.js.map": "/project1-bootcamp/static/js/main.7f8b6743.js.map"
   },
   "entrypoints": [
     "static/css/main.182d5ef6.css",
-    "static/js/main.6ccf10d7.js"
+    "static/js/main.7f8b6743.js"
   ]
 }
