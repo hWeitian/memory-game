@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Typography, Grid, Container } from "@mui/material";
+import { Typography, Grid, Container, Box } from "@mui/material";
 import Board from "./Components/Board";
 import { generateID, updateWinner, resetPlayersInfo } from "./utlis";
 import CurrentResults from "./Components/CurrentResults";
@@ -195,6 +195,20 @@ class App extends React.Component {
 
     const totalTiles = this.state.idArray.length - 1;
 
+    if (
+      this.state.numOfPlayers > 1 &&
+      this.state.currentPlayer === this.state.numOfPlayers
+    ) {
+      const [winners, newPlayersArr] = updateWinner(
+        this.state.currentRound,
+        this.state.players
+      );
+      this.setState({
+        players: newPlayersArr,
+        roundWinners: winners,
+      });
+    }
+
     if (currentMatchedTiles !== totalTiles) {
       this.setState({
         roundStatus: "lose",
@@ -204,6 +218,16 @@ class App extends React.Component {
   };
 
   updateRound = () => {
+    const maxRounds = 90;
+    if (this.state.currentRound + 1 > maxRounds) {
+      this.setState({
+        roundStatus: "end game",
+        displayModal: true,
+        displayModalSource: "end game",
+      });
+      return;
+    }
+
     const newPlayersArr = [...this.state.players];
 
     newPlayersArr.forEach((player) => {
@@ -303,92 +327,105 @@ class App extends React.Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        {this.state.roundStatus === "selection" ? (
-          <PlayersSelection setNumOfPlayers={this.setNumOfPlayers} />
-        ) : (
-          <>
-            <Container sx={{ mt: 2, pb: 5 }}>
-              <div className="App">
-                <Header
-                  displayModal={this.handleModalOpen}
-                  resetGame={this.resetGame}
+        <div className="App">
+          {this.state.roundStatus === "selection" ? (
+            <PlayersSelection setNumOfPlayers={this.setNumOfPlayers} />
+          ) : (
+            <Container sx={{ pt: 2, pb: 0 }}>
+              <Header displayModal={this.handleModalOpen} />
+              <Grid
+                container
+                sx={{
+                  mb: 4.375,
+                  mt: 7.5,
+                  justifyContent: "center",
+                  gap: "20px",
+                }}
+              >
+                <CurrentResults
+                  players={this.state.players}
+                  currentPlayer={this.state.currentPlayer}
+                  currentRound={this.state.currentRound}
+                  timer={this.state.timer}
+                  handleTimesUp={this.handleTimesUp}
+                  roundStatus={this.state.roundStatus}
+                  isModalShown={this.state.displayModal}
                 />
-                <Grid
-                  container
-                  sx={{
-                    mb: 4.375,
-                    mt: 7.5,
-                    justifyContent: "center",
-                    gap: "20px",
-                  }}
-                >
-                  <CurrentResults
-                    players={this.state.players}
-                    currentPlayer={this.state.currentPlayer}
-                    currentRound={this.state.currentRound}
-                    timer={this.state.timer}
-                    handleTimesUp={this.handleTimesUp}
-                    roundStatus={this.state.roundStatus}
-                    isModalShown={this.state.displayModal}
-                  />
-                </Grid>
-                <Grid container>
-                  <Board
-                    rounds={this.state.currentRound}
-                    updatePlayerInfo={this.updatePlayerInfo}
-                    currentPlayer={this.state.currentPlayer}
-                    players={this.state.players}
-                    idArray={this.state.idArray}
-                    handleTilesClicked={this.handleTilesClicked}
-                    disable={this.state.disable}
-                    matchedTiles={this.state.matchedTiles}
-                    clickedTiles={this.state.clickedTiles}
-                  />
-                </Grid>
-                <Grid container mt={15} p={3}>
+              </Grid>
+              <Grid container>
+                <Board
+                  rounds={this.state.currentRound}
+                  updatePlayerInfo={this.updatePlayerInfo}
+                  currentPlayer={this.state.currentPlayer}
+                  players={this.state.players}
+                  idArray={this.state.idArray}
+                  handleTilesClicked={this.handleTilesClicked}
+                  disable={this.state.disable}
+                  matchedTiles={this.state.matchedTiles}
+                  clickedTiles={this.state.clickedTiles}
+                />
+              </Grid>
+              {this.state.numOfPlayers > 1 ? (
+                <Grid container mt={5} p={3}>
                   <MultiplayerScore
                     players={this.state.players}
                     currentPlayer={this.state.currentPlayer}
                   />
                 </Grid>
-                <Grid container>
-                  <CustomModal
-                    open={this.state.displayModal}
-                    handleResultsClose={this.handleModalClose}
-                    updateRound={this.updateRound}
-                    resetRound={this.resetRound}
-                    resetGame={this.resetGame}
-                    switchPlayer={this.switchPlayer}
-                    clickSource={this.state.displayModalSource}
-                    roundStatus={this.state.roundStatus}
-                    numOfPlayers={this.state.numOfPlayers}
-                    currentPlayer={this.state.currentPlayer}
-                  >
-                    {this.state.displayModalSource === "rules" ? (
-                      <Rules />
-                    ) : this.state.displayModalSource === "reset-game" ? (
-                      <Typography>
-                        This will delete all game records.
-                        <br />
-                        Are you sure you want to continue?
+              ) : null}
+              <Grid container>
+                <CustomModal
+                  open={this.state.displayModal}
+                  handleResultsClose={this.handleModalClose}
+                  updateRound={this.updateRound}
+                  resetRound={this.resetRound}
+                  resetGame={this.resetGame}
+                  switchPlayer={this.switchPlayer}
+                  clickSource={this.state.displayModalSource}
+                  roundStatus={this.state.roundStatus}
+                  numOfPlayers={this.state.numOfPlayers}
+                  currentPlayer={this.state.currentPlayer}
+                >
+                  {this.state.displayModalSource === "rules" ? (
+                    <Rules />
+                  ) : this.state.displayModalSource === "reset-game" ? (
+                    <Typography>
+                      This will delete all game records.
+                      <br />
+                      Are you sure you want to continue?
+                    </Typography>
+                  ) : this.state.displayModalSource === "reset-round" ? (
+                    <Typography>
+                      This will reset the current level.
+                      <br />
+                      Are you sure you want to continue?
+                    </Typography>
+                  ) : this.state.roundStatus === "end game" ? (
+                    <Box mb={2}>
+                      <Typography variant="h5" sx={{ fontWeight: 700 }}>
+                        Congratulations!
                       </Typography>
-                    ) : (
-                      <ResultsContainer
-                        players={this.state.players}
-                        numOfPlayers={this.state.numOfPlayers}
-                        round={this.state.currentRound}
-                        roundStatus={this.state.roundStatus}
-                        clickSource={this.state.displayModalSource}
-                        currentPlayer={this.state.currentPlayer}
-                        roundWinners={this.state.roundWinners}
-                      />
-                    )}
-                  </CustomModal>
-                </Grid>
-              </div>
+                      <Typography>
+                        You have completed the final round. <br />
+                        Please click on New Game to replay!
+                      </Typography>
+                    </Box>
+                  ) : (
+                    <ResultsContainer
+                      players={this.state.players}
+                      numOfPlayers={this.state.numOfPlayers}
+                      round={this.state.currentRound}
+                      roundStatus={this.state.roundStatus}
+                      clickSource={this.state.displayModalSource}
+                      currentPlayer={this.state.currentPlayer}
+                      roundWinners={this.state.roundWinners}
+                    />
+                  )}
+                </CustomModal>
+              </Grid>
             </Container>
-          </>
-        )}
+          )}
+        </div>
       </ThemeProvider>
     );
   }

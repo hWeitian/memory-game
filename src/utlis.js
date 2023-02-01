@@ -132,11 +132,17 @@ export const determineWinner = (currentRound, playersArr) => {
     return results;
   } else {
     results = matchedCountsIndex.map((count) => count + 1);
+    // console.log("Matched Counts Index");
+    // console.log(matchedCountsIndex);
+    // console.log("Results");
+    // console.log(results);
     return results;
   }
 };
 
 export const generateResults = (winnersArr) => {
+  // console.log("Winners Array");
+  // console.log(winnersArr);
   let results = "";
   if (winnersArr.length > 1) {
     results = `It's a tie!`;
@@ -148,6 +154,7 @@ export const generateResults = (winnersArr) => {
 
 export const updateWinner = (currentRound, playersArr) => {
   const winners = determineWinner(currentRound, playersArr);
+  console.log(winners);
   const newPlayersArr = [...playersArr];
   winners.forEach((winner) => {
     let winnerIndex = winner - 1;

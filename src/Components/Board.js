@@ -1,7 +1,7 @@
 import React from "react";
 import Tiles from "./Tiles/Tiles";
 import "./Tiles/Tiles.css";
-import { Grid, Container, Box } from "@mui/material";
+import { Grid } from "@mui/material";
 
 class Board extends React.Component {
   handleClick = (id) => {

@@ -9,9 +9,12 @@ import {
   Grid,
   Menu,
   MenuItem,
+  Tooltip,
+  Zoom,
 } from "@mui/material";
-import InfoIcon from "@mui/icons-material/Info";
 import MenuIcon from "@mui/icons-material/Menu";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import CustomButton from "./CustomButton/CustomButton";
 
 class Header extends React.Component {
@@ -105,19 +108,42 @@ class Header extends React.Component {
                           Results
                         </CustomButton>
                       </Grid>
-                      <Grid item sx={{}}>
-                        <IconButton
-                          aria-label="mobile menu"
-                          aria-controls="menu-appbar"
-                          aria-haspopup="true"
-                          onClick={() => this.handleDisplayModal("rules")}
-                          sx={{
-                            color: "#304859",
-                            padding: 0,
-                          }}
+                      <Grid item>
+                        <Tooltip
+                          TransitionComponent={Zoom}
+                          title="Restart Level"
                         >
-                          <InfoIcon style={{ fontSize: 38 }} />
-                        </IconButton>
+                          <IconButton
+                            aria-label="mobile menu"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={() =>
+                              this.handleDisplayModal("reset-round")
+                            }
+                            sx={{
+                              color: "#304859",
+                              padding: 0,
+                            }}
+                          >
+                            <RestartAltIcon style={{ fontSize: 38 }} />
+                          </IconButton>
+                        </Tooltip>
+                      </Grid>
+                      <Grid item>
+                        <Tooltip TransitionComponent={Zoom} title="Rules">
+                          <IconButton
+                            aria-label="mobile menu"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={() => this.handleDisplayModal("rules")}
+                            sx={{
+                              color: "#304859",
+                              padding: 0,
+                            }}
+                          >
+                            <HelpOutlineIcon style={{ fontSize: 38 }} />
+                          </IconButton>
+                        </Tooltip>
                       </Grid>
                     </Grid>
                   </Box>
@@ -157,6 +183,13 @@ class Header extends React.Component {
                         onClick={() => this.handleMobileMenuClick("reset-game")}
                       >
                         <Typography textAlign="center">New Game</Typography>
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() =>
+                          this.handleMobileMenuClick("reset-round")
+                        }
+                      >
+                        <Typography textAlign="center">Reset</Typography>
                       </MenuItem>
                       <MenuItem
                         onClick={() =>

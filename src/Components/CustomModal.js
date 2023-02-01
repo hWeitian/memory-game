@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Box, Grid } from "@mui/material";
+import { Modal, Box, Grid, styled } from "@mui/material";
 import CustomButton from "./CustomButton/CustomButton";
 
 const style = {
@@ -7,7 +7,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 327,
+  width: { xs: "90vw", sm: 500 },
   bgcolor: "#F2F2F2",
   boxShadow: 24,
   p: 4,
@@ -22,6 +22,8 @@ class CustomModal extends React.Component {
       return;
     } else if (reason === "reset-game") {
       this.props.resetGame();
+    } else if (reason === "reset-round") {
+      this.props.resetRound();
     }
     this.props.handleResultsClose();
   };
@@ -30,7 +32,6 @@ class CustomModal extends React.Component {
     if (this.props.currentPlayer < this.props.numOfPlayers) {
       this.props.switchPlayer();
     } else {
-      // determineWinner(this.props.currentRound, this.props.players);
       this.props.updateRound();
     }
   };
@@ -49,7 +50,8 @@ class CustomModal extends React.Component {
         >
           <Box sx={style}>
             {this.props.children}
-            {this.props.clickSource === "reset-game" ? (
+            {this.props.clickSource === "reset-game" ||
+            this.props.clickSource === "reset-round" ? (
               <>
                 <Grid container justifyContent="space-around" sx={{ mt: 2 }}>
                   <Grid item xs={5}>
@@ -62,7 +64,7 @@ class CustomModal extends React.Component {
                   </Grid>
                   <Grid item xs={5}>
                     <CustomButton
-                      onClick={() => this.handleClose("nil", "reset-game")}
+                      onClick={() => this.handleClose("nil", "reset-round")}
                       className="btn btn-orange"
                     >
                       Yes
@@ -88,6 +90,22 @@ class CustomModal extends React.Component {
               >
                 Restart
               </CustomButton>
+            ) : this.props.roundStatus === "end game" ? (
+              <>
+                <CustomButton
+                  onClick={this.props.resetGame}
+                  className="btn btn-orange"
+                  style={{ marginBottom: "0.685rem" }}
+                >
+                  New Game
+                </CustomButton>
+                <CustomButton
+                  onClick={this.handleClose}
+                  className="btn btn-light-blue"
+                >
+                  Close
+                </CustomButton>
+              </>
             ) : (
               <>
                 {this.props.currentPlayer === this.props.numOfPlayers ? (

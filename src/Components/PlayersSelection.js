@@ -17,9 +17,11 @@ class PlayersSelection extends React.Component {
   }
 
   handleChange = (event, newPlayersNum) => {
-    this.setState({
-      playersNum: newPlayersNum,
-    });
+    if (newPlayersNum !== null) {
+      this.setState({
+        playersNum: newPlayersNum,
+      });
+    }
   };
 
   handleSubmit = () => {
@@ -34,11 +36,13 @@ class PlayersSelection extends React.Component {
           disableGutters
           sx={{
             backgroundColor: "#152938",
-            height: "100vh",
+            height: "100%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            flexWrap: "wrap",
           }}
+          style={{ overflow: "hidden" }}
         >
           <Grid container justifyContent="center">
             <Grid container justifyContent="center" mb={7}>
@@ -121,7 +125,7 @@ class PlayersSelection extends React.Component {
                   className="btn btn-orange"
                   onClick={this.handleSubmit}
                 >
-                  Submit
+                  Start Game!
                 </CustomButton>
               </Grid>
             </Grid>

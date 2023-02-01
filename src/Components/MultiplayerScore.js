@@ -7,7 +7,15 @@ class MultiplayerScore extends React.Component {
     const indexOfCurrentPlayer = this.props.currentPlayer - 1;
     return (
       <>
-        <Grid container justifyContent="space-between" sx={{ gap: 1 }}>
+        <Grid
+          container
+          justifyContent={
+            this.props.players.length > 2 ? "space-between" : "center"
+          }
+          sx={{
+            gap: this.props.players.length > 2 ? 1 : 6,
+          }}
+        >
           {this.props.players.map((player, index) => {
             return (
               <Grid item xs={2.5} key={`${index}`}>
