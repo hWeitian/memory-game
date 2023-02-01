@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Box, Grid, styled } from "@mui/material";
+import { Modal, Box, Grid } from "@mui/material";
 import CustomButton from "./CustomButton/CustomButton";
 
 const style = {
@@ -7,7 +7,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: { xs: "90vw", sm: 500 },
+  width: { xs: "90vw", sm: 450 },
   bgcolor: "#F2F2F2",
   boxShadow: 24,
   p: 4,

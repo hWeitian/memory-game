@@ -5,7 +5,7 @@ class Rules extends React.Component {
   render() {
     return (
       <>
-        <Typography variant="h6">Rules</Typography>
+        <Typography variant="h5">How to Play</Typography>
         <ul
           style={{
             fontSize: "0.9rem",
@@ -14,17 +14,34 @@ class Rules extends React.Component {
           }}
         >
           <li>
-            The aim of this game is to match pairs of cards within the given
-            time limit with as little moves as possible.
+            The goal of this game is to match pairs of cards within the given
+            time limit with as few moves as possible.
           </li>
           <li>
-            All cards are placed face down at the start of each round, player
-            will have to click on each card to reveal the card content.
+            All cards are placed face down at the start of each round, the
+            player will have to click on each card to reveal the card content.
           </li>
           <li>
-            After revealing every 2 cards, if the images on both cards does not
-            match, the cards will be flipped back.
+            After revealing every two cards, cards will be flipped back if the
+            images on both cards do not match.
           </li>
+        </ul>
+        <Typography variant="h6" sx={{ textAlign: "left" }}>
+          Multiplayer
+        </Typography>
+        <ul
+          style={{
+            fontSize: "0.9rem",
+            textAlign: "left",
+            margin: "20px 0",
+          }}
+        >
+          <li>Players take turns to play each round.</li>
+          <li>
+            The player who matched the most cards with the least number of moves
+            is the winner of the round.
+          </li>
+          <li>The player who won the most rounds is the winner of the game.</li>
         </ul>
       </>
     );

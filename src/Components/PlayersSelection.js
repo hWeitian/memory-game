@@ -89,33 +89,17 @@ class PlayersSelection extends React.Component {
                   }}
                   fullWidth
                 >
-                  <ToggleButton
-                    value="1"
-                    className="btn btn-mist"
-                    style={{ borderRadius: "50px", fontWeight: 700 }}
-                  >
+                  <ToggleButton value="1" className="btn btn-mist">
                     1
                   </ToggleButton>
 
-                  <ToggleButton
-                    value="2"
-                    className="btn btn-mist"
-                    style={{ borderRadius: "50px", fontWeight: 700 }}
-                  >
+                  <ToggleButton value="2" className="btn btn-mist">
                     2
                   </ToggleButton>
-                  <ToggleButton
-                    value="3"
-                    className="btn btn-mist"
-                    style={{ borderRadius: "50px", fontWeight: 700 }}
-                  >
+                  <ToggleButton value="3" className="btn btn-mist">
                     3
                   </ToggleButton>
-                  <ToggleButton
-                    value="4"
-                    className="btn btn-mist"
-                    style={{ borderRadius: "50px", fontWeight: 700 }}
-                  >
+                  <ToggleButton value="4" className="btn btn-mist">
                     4
                   </ToggleButton>
                 </ToggleButtonGroup>

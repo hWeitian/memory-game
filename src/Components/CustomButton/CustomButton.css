@@ -28,6 +28,8 @@
   background-color: #bcced9 !important;
   border: 0 !important;
   color: #fcfcfc !important;
+  font-weight: 700 !important;
+  border-radius: 50px !important;
 }
 
 .btn-mist:hover {
