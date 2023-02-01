@@ -1,18 +1,18 @@
 import React from "react";
 import { Typography } from "@mui/material";
 
+const style = {
+  fontSize: "0.9rem",
+  textAlign: "left",
+  margin: "20px 0",
+};
+
 class Rules extends React.Component {
   render() {
     return (
       <>
         <Typography variant="h5">How to Play</Typography>
-        <ul
-          style={{
-            fontSize: "0.9rem",
-            textAlign: "left",
-            margin: "20px 0",
-          }}
-        >
+        <ul style={style}>
           <li>
             The goal of this game is to match pairs of cards within the given
             time limit with as few moves as possible.
@@ -29,13 +29,7 @@ class Rules extends React.Component {
         <Typography variant="h6" sx={{ textAlign: "left" }}>
           Multiplayer
         </Typography>
-        <ul
-          style={{
-            fontSize: "0.9rem",
-            textAlign: "left",
-            margin: "20px 0",
-          }}
-        >
+        <ul style={style}>
           <li>Players take turns to play each round.</li>
           <li>
             The player who matched the most cards with the least number of moves
