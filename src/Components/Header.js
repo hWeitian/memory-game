@@ -84,7 +84,7 @@ class Header extends React.Component {
                       container
                       sx={{
                         justifyContent: "space-between",
-                        gap: { xs: 0.5, md: 1 },
+                        gap: { xs: 0.3, md: 1 },
 
                         alignItems: "center",
                       }}
