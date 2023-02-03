@@ -20,7 +20,7 @@ class CurrentResultsCard extends React.Component {
       <>
         <Paper
           elevation={3}
-          style={{ backgroundColor: "#6395B8", color: "#FCFCFC" }}
+          sx={{ backgroundColor: "#6395B8", color: "#FCFCFC" }}
           onClick={this.handleClick}
         >
           <Grid container justifyContent="space-between" p={{ xs: 1, md: 1.5 }}>
@@ -34,7 +34,9 @@ class CurrentResultsCard extends React.Component {
             <Grid item xs={12} md={6}>
               <AlignRight>
                 <Typography
-                  sx={{ typography: { xs: "body1", sm: "h6" } }}
+                  sx={{
+                    typography: { xs: "body1", sm: "h6" },
+                  }}
                   style={{ fontWeight: 700 }}
                 >
                   {this.props.children === undefined ? 0 : this.props.children}

@@ -1,19 +1,19 @@
-.tile-close {
+.tile-open {
   background-color: #304859 !important;
   color: #304859 !important;
   border: 1px solid white;
 }
 
-.tile-close img {
+.tile-open img {
   visibility: hidden;
 }
 
-.tile-open {
+.tile-close {
   background-color: #fda214 !important;
   color: #000000 !important;
 }
 
-.tile-open img {
+.tile-close img {
   display: block;
   height: 100%;
   width: 100%;

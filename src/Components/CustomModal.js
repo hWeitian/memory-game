@@ -2,20 +2,6 @@ import React from "react";
 import { Modal, Box, Grid } from "@mui/material";
 import CustomButton from "./CustomButton/CustomButton";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: { xs: "90vw", sm: 450 },
-  bgcolor: "#F2F2F2",
-  boxShadow: 24,
-  p: 4,
-  textAlign: "center",
-  borderRadius: "40px",
-  padding: 3,
-};
-
 class CustomModal extends React.Component {
   handleClose = (event, reason) => {
     if (reason === "backdropClick" && this.props.clickSource === "default") {
@@ -48,7 +34,7 @@ class CustomModal extends React.Component {
             this.props.clickSource === "default" ? true : false
           }
         >
-          <Box sx={style}>
+          <Box sx={{ width: { xs: "90vw", sm: 450 } }} className="modal-style">
             {this.props.children}
             {this.props.clickSource === "reset-game" ||
             this.props.clickSource === "reset-round" ? (
@@ -64,7 +50,9 @@ class CustomModal extends React.Component {
                   </Grid>
                   <Grid item xs={5}>
                     <CustomButton
-                      onClick={() => this.handleClose("nil", "reset-round")}
+                      onClick={() =>
+                        this.handleClose("nil", this.props.clickSource)
+                      }
                       className="btn btn-orange"
                     >
                       Yes
@@ -111,22 +99,32 @@ class CustomModal extends React.Component {
                 {this.props.currentPlayer === this.props.numOfPlayers ? (
                   <CustomButton
                     onClick={this.props.resetRound}
-                    className="btn btn-light-blue"
+                    className={
+                      this.props.roundWinners.length === 0 &&
+                      this.props.numOfPlayers &&
+                      this.props.numOfPlayers > 1
+                        ? "btn btn-orange"
+                        : "btn btn-light-blue"
+                    }
                     style={{ marginBottom: "0.685rem" }}
                   >
                     Restart
                   </CustomButton>
                 ) : null}
-                <CustomButton
-                  onClick={this.handleClick}
-                  className="btn btn-orange"
-                >
-                  {this.props.numOfPlayers === 1
-                    ? "Next Level"
-                    : this.props.currentPlayer < this.props.numOfPlayers
-                    ? "Next Player"
-                    : "Next Level"}
-                </CustomButton>
+                {this.props.roundWinners.length === 0 &&
+                this.props.currentPlayer === this.props.numOfPlayers &&
+                this.props.numOfPlayers > 1 ? null : (
+                  <CustomButton
+                    onClick={this.handleClick}
+                    className="btn btn-orange"
+                  >
+                    {this.props.numOfPlayers === 1
+                      ? "Next Level"
+                      : this.props.currentPlayer < this.props.numOfPlayers
+                      ? "Next Player"
+                      : "Next Level"}
+                  </CustomButton>
+                )}
               </>
             )}
           </Box>

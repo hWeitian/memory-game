@@ -13,9 +13,9 @@ import {
   Zoom,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import CustomButton from "./CustomButton/CustomButton";
+import GameInfoButton from "./GameInfoButton";
 
 class Header extends React.Component {
   constructor(props) {
@@ -84,14 +84,15 @@ class Header extends React.Component {
                       container
                       sx={{
                         justifyContent: "space-between",
-                        gap: 1,
+                        gap: { xs: 0.5, md: 1 },
+
                         alignItems: "center",
                       }}
                     >
                       <Grid item>
                         <CustomButton
                           className="btn btn-orange"
-                          style={{ width: "8rem" }}
+                          style={{ width: "7rem" }}
                           onClick={() => this.handleDisplayModal("reset-game")}
                         >
                           New Game
@@ -100,7 +101,7 @@ class Header extends React.Component {
                       <Grid item>
                         <CustomButton
                           className="btn btn-light-blue"
-                          style={{ width: "8rem" }}
+                          style={{ width: "7rem" }}
                           onClick={() =>
                             this.handleDisplayModal("results-navbar")
                           }
@@ -125,25 +126,15 @@ class Header extends React.Component {
                               padding: 0,
                             }}
                           >
-                            <RestartAltIcon style={{ fontSize: 38 }} />
+                            <RestartAltIcon sx={{ fontSize: 38 }} />
                           </IconButton>
                         </Tooltip>
                       </Grid>
                       <Grid item>
-                        <Tooltip TransitionComponent={Zoom} title="Rules">
-                          <IconButton
-                            aria-label="mobile menu"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={() => this.handleDisplayModal("rules")}
-                            sx={{
-                              color: "#304859",
-                              padding: 0,
-                            }}
-                          >
-                            <HelpOutlineIcon style={{ fontSize: 38 }} />
-                          </IconButton>
-                        </Tooltip>
+                        <GameInfoButton
+                          onClick={this.handleDisplayModal}
+                          size={38}
+                        />
                       </Grid>
                     </Grid>
                   </Box>
@@ -159,7 +150,7 @@ class Header extends React.Component {
                       onClick={this.handleOpenNavMenu}
                       sx={{ color: "#FDA214", padding: 0 }}
                     >
-                      <MenuIcon style={{ fontSize: 30 }} />
+                      <MenuIcon sx={{ fontSize: 30 }} />
                     </IconButton>
                     <Menu
                       id="menu-appbar"

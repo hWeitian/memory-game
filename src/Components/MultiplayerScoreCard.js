@@ -1,6 +1,6 @@
 import React from "react";
 import { Paper, Typography, Grid } from "@mui/material";
-import "./MultiplayerScoreCard.css";
+// import "./MultiplayerScoreCard.css";
 
 class MultiplayerScoreCard extends React.Component {
   render() {

@@ -5,7 +5,7 @@ import CountdownTimer from "./CountdownTimer";
 
 class CurrentResults extends React.Component {
   render() {
-    const currentRound = this.props.players[0]["moves"].length;
+    const currentRound = this.props.currentRound;
     const currentRoundIndex = currentRound - 1;
     const currentPlayerMoves =
       this.props.players[this.props.currentPlayer - 1]["moves"][
@@ -28,7 +28,7 @@ class CurrentResults extends React.Component {
                 p: { xs: 0.5, md: 1 },
               }}
             >
-              <Typography variant="h6" style={{ fontWeight: 700 }}>
+              <Typography variant="h6" sx={{ fontWeight: 700 }}>
                 Level {currentRound}
               </Typography>
             </Paper>

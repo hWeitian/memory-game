@@ -3,7 +3,14 @@ import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Typography, Grid, Container, Box } from "@mui/material";
 import Board from "./Components/Board";
-import { generateID, updateWinner, resetPlayersInfo } from "./utlis";
+import {
+  generateID,
+  generateWinner,
+  resetPlayersInfo,
+  generateNewPlayerInfo,
+  checkMatched,
+  checkRoundCompleted,
+} from "./utlis";
 import CurrentResults from "./Components/CurrentResults";
 import Header from "./Components/Header";
 import CustomModal from "./Components/CustomModal";
@@ -40,18 +47,18 @@ class App extends React.Component {
       displayModal: false,
       displayModalSource: "default",
       roundWinners: [],
-      // timer: 1000000,
-      // timer: 10000,
-      timer: 40000,
+      // timer: 40000,
+      timer: 10000,
     };
   }
 
   updatePlayerInfo = (player, infoType) => {
     player -= 1;
     const currentPlayers = [...this.state.players];
-    const updatedPlayers = this.generateNewPlayerInfo(
+    const updatedPlayers = generateNewPlayerInfo(
       currentPlayers,
       player,
+      this.state.currentRound,
       infoType,
       1
     );
@@ -61,55 +68,26 @@ class App extends React.Component {
     });
   };
 
-  /**
-   * Function to update a specific player's info
-   * @param {array} playersArr
-   * @param {number} playerIndex
-   * @param {string} infoType
-   * @param {number} info
-   * @returns {array} Returns a new array of players state with updated info
-   */
-  generateNewPlayerInfo = (playersArr, playerIndex, infoType, info) => {
-    const indexToUpdate = this.state.currentRound - 1;
-    let newInfo = Number(playersArr[playerIndex][infoType][indexToUpdate]);
-    newInfo += info;
-    const newPlayersArr = playersArr.map((player, index) => {
-      if (index === playerIndex) {
-        player[infoType][indexToUpdate] = newInfo;
-        return player;
-      } else {
-        return player;
-      }
-    });
-    return newPlayersArr;
-  };
-
-  checkMatched = (id) => {
-    const uniqueIdOne = id.split("-")[0];
-    const uniqueIdTwo = this.state.clickedTiles[0].split("-")[0];
-    if (uniqueIdTwo === uniqueIdOne) {
-      return true;
-    }
-    return false;
-  };
-
   updateMatched = (id) => {
     this.updatePlayerInfo(this.state.currentPlayer, "matched");
-    const roundCompleted = this.checkRoundCompleted();
+    const roundCompleted = checkRoundCompleted(
+      this.state.matchedTiles.length,
+      this.state.idArray.length
+    );
 
     if (roundCompleted) {
       if (
         this.state.numOfPlayers > 1 &&
         this.state.currentPlayer === this.state.numOfPlayers
       ) {
-        const [winners, newPlayersArr] = updateWinner(
+        const [winners, newPlayersArr] = generateWinner(
           this.state.currentRound,
           this.state.players
         );
         this.setState({
           players: newPlayersArr,
           displayModal: true,
-          roundStatus: "win",
+          roundStatus: winners.length === 0 ? "lose" : "win",
           roundWinners: winners,
         });
       } else {
@@ -125,17 +103,6 @@ class App extends React.Component {
       clickedTiles: [],
       disable: "auto",
     }));
-  };
-
-  checkRoundCompleted = () => {
-    const numOfMatchedTiles = this.state.matchedTiles.length;
-    const numOfTiles = this.state.idArray.length;
-
-    if (numOfMatchedTiles === numOfTiles - 2) {
-      return true;
-    }
-
-    return false;
   };
 
   clearClickedTiles = () => {
@@ -158,7 +125,7 @@ class App extends React.Component {
         clickedTiles: [...prevState.clickedTiles, id],
         disable: "none",
       }));
-      let isMatched = this.checkMatched(id);
+      let isMatched = checkMatched(id, this.state.clickedTiles);
       if (isMatched) {
         setTimeout(() => this.updateMatched(id), 500);
       } else {
@@ -199,7 +166,7 @@ class App extends React.Component {
       this.state.numOfPlayers > 1 &&
       this.state.currentPlayer === this.state.numOfPlayers
     ) {
-      const [winners, newPlayersArr] = updateWinner(
+      const [winners, newPlayersArr] = generateWinner(
         this.state.currentRound,
         this.state.players
       );
@@ -246,6 +213,7 @@ class App extends React.Component {
       roundStatus: "new game",
       displayModal: false,
       timer: (prevState.timer += 15000),
+      roundWinners: [],
     }));
   };
 
@@ -327,11 +295,14 @@ class App extends React.Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <div className="App">
-          {this.state.roundStatus === "selection" ? (
-            <PlayersSelection setNumOfPlayers={this.setNumOfPlayers} />
-          ) : (
-            <Container sx={{ pt: 2, pb: 0 }}>
+        {this.state.roundStatus === "selection" ? (
+          <PlayersSelection
+            setNumOfPlayers={this.setNumOfPlayers}
+            displayModal={this.handleModalOpen}
+          />
+        ) : (
+          <div className="App">
+            <Container sx={{ pt: 2, pb: 10 }}>
               <Header displayModal={this.handleModalOpen} />
               <Grid
                 container
@@ -354,13 +325,10 @@ class App extends React.Component {
               </Grid>
               <Grid container>
                 <Board
-                  rounds={this.state.currentRound}
-                  updatePlayerInfo={this.updatePlayerInfo}
-                  currentPlayer={this.state.currentPlayer}
-                  players={this.state.players}
+                  currentRound={this.state.currentRound}
                   idArray={this.state.idArray}
                   handleTilesClicked={this.handleTilesClicked}
-                  disable={this.state.disable}
+                  disableClick={this.state.disable}
                   matchedTiles={this.state.matchedTiles}
                   clickedTiles={this.state.clickedTiles}
                 />
@@ -373,59 +341,61 @@ class App extends React.Component {
                   />
                 </Grid>
               ) : null}
-              <Grid container>
-                <CustomModal
-                  open={this.state.displayModal}
-                  handleResultsClose={this.handleModalClose}
-                  updateRound={this.updateRound}
-                  resetRound={this.resetRound}
-                  resetGame={this.resetGame}
-                  switchPlayer={this.switchPlayer}
-                  clickSource={this.state.displayModalSource}
-                  roundStatus={this.state.roundStatus}
-                  numOfPlayers={this.state.numOfPlayers}
-                  currentPlayer={this.state.currentPlayer}
-                >
-                  {this.state.displayModalSource === "rules" ? (
-                    <Rules />
-                  ) : this.state.displayModalSource === "reset-game" ? (
-                    <Typography>
-                      This will delete all game records.
-                      <br />
-                      Are you sure you want to continue?
-                    </Typography>
-                  ) : this.state.displayModalSource === "reset-round" ? (
-                    <Typography>
-                      This will reset the current level.
-                      <br />
-                      Are you sure you want to continue?
-                    </Typography>
-                  ) : this.state.roundStatus === "end game" ? (
-                    <Box mb={2}>
-                      <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                        Congratulations!
-                      </Typography>
-                      <Typography>
-                        You have completed the final round. <br />
-                        Please click on New Game to replay!
-                      </Typography>
-                    </Box>
-                  ) : (
-                    <ResultsContainer
-                      players={this.state.players}
-                      numOfPlayers={this.state.numOfPlayers}
-                      round={this.state.currentRound}
-                      roundStatus={this.state.roundStatus}
-                      clickSource={this.state.displayModalSource}
-                      currentPlayer={this.state.currentPlayer}
-                      roundWinners={this.state.roundWinners}
-                    />
-                  )}
-                </CustomModal>
-              </Grid>
             </Container>
-          )}
-        </div>
+          </div>
+        )}
+
+        <Grid container>
+          <CustomModal
+            open={this.state.displayModal}
+            handleResultsClose={this.handleModalClose}
+            updateRound={this.updateRound}
+            resetRound={this.resetRound}
+            resetGame={this.resetGame}
+            switchPlayer={this.switchPlayer}
+            clickSource={this.state.displayModalSource}
+            roundStatus={this.state.roundStatus}
+            numOfPlayers={this.state.numOfPlayers}
+            currentPlayer={this.state.currentPlayer}
+            roundWinners={this.state.roundWinners}
+          >
+            {this.state.displayModalSource === "rules" ? (
+              <Rules />
+            ) : this.state.displayModalSource === "reset-game" ? (
+              <Typography>
+                This will delete all game records.
+                <br />
+                Are you sure you want to continue?
+              </Typography>
+            ) : this.state.displayModalSource === "reset-round" ? (
+              <Typography>
+                This will reset the current level.
+                <br />
+                Are you sure you want to continue?
+              </Typography>
+            ) : this.state.roundStatus === "end game" ? (
+              <Box mb={2}>
+                <Typography variant="h5" sx={{ fontWeight: 700 }}>
+                  Congratulations!
+                </Typography>
+                <Typography>
+                  You have completed the final round. <br />
+                  Please click on New Game to replay!
+                </Typography>
+              </Box>
+            ) : (
+              <ResultsContainer
+                players={this.state.players}
+                numOfPlayers={this.state.numOfPlayers}
+                currentRound={this.state.currentRound}
+                roundStatus={this.state.roundStatus}
+                clickSource={this.state.displayModalSource}
+                currentPlayer={this.state.currentPlayer}
+                roundWinners={this.state.roundWinners}
+              />
+            )}
+          </CustomModal>
+        </Grid>
       </ThemeProvider>
     );
   }

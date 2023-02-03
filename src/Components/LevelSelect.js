@@ -15,8 +15,8 @@ class LevelSelect extends React.Component {
                 onChange={this.props.onChange}
                 displayEmpty
                 inputProps={{ "aria-label": "Without label" }}
-                sx={{ p: 0 }}
-                style={{
+                sx={{
+                  p: 0,
                   borderRadius: 10,
                   backgroundColor: "#DFE7EC",
                   color: "#304859",

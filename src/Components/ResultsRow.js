@@ -1,5 +1,4 @@
 import React from "react";
-import "./ResultsRow.css";
 import { Grid, Typography } from "@mui/material";
 
 class ResultsRow extends React.Component {
@@ -11,7 +10,7 @@ class ResultsRow extends React.Component {
           className={this.props.className}
           sx={{ p: 1, mb: 1.875 }}
         >
-          <Grid item xs={3} style={{ margin: "auto" }}>
+          <Grid item xs={3} sx={{ margin: "auto" }}>
             <Typography
               style={{
                 fontSize: "0.8125rem",
@@ -25,12 +24,12 @@ class ResultsRow extends React.Component {
             </Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography style={{ fontSize: "1.25rem", fontWeight: 700 }}>
+            <Typography sx={{ fontSize: "1.25rem", fontWeight: 700 }}>
               {`${this.props.matched} Pairs`}
             </Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography style={{ fontSize: "1.25rem", fontWeight: 700 }}>
+            <Typography sx={{ fontSize: "1.25rem", fontWeight: 700 }}>
               {`${this.props.moves} Moves`}
             </Typography>
           </Grid>

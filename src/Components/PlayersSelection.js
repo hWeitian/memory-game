@@ -7,6 +7,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
+import GameInfoButton from "./GameInfoButton";
 
 class PlayersSelection extends React.Component {
   constructor(props) {
@@ -28,6 +29,10 @@ class PlayersSelection extends React.Component {
     this.props.setNumOfPlayers(this.state.playersNum);
   };
 
+  handleDisplayModal = (source) => {
+    this.props.displayModal(source);
+  };
+
   render() {
     return (
       <>
@@ -42,7 +47,6 @@ class PlayersSelection extends React.Component {
             alignItems: "center",
             flexWrap: "wrap",
           }}
-          style={{ overflow: "hidden" }}
         >
           <Grid container justifyContent="center">
             <Grid container justifyContent="center" mb={7}>
@@ -65,16 +69,26 @@ class PlayersSelection extends React.Component {
               md={5}
               lg={4}
             >
-              <Grid container sx={{ mb: 2 }}>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    fontWeight: 700,
-                    color: "#7191A5",
-                  }}
-                >
-                  Number of Players
-                </Typography>
+              <Grid
+                container
+                sx={{ mb: 3 }}
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Grid item>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontWeight: 700,
+                      color: "#304859",
+                    }}
+                  >
+                    Number of Players
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <GameInfoButton onClick={this.handleDisplayModal} size={30} />
+                </Grid>
               </Grid>
               <Grid container sx={{ mb: 3 }}>
                 <ToggleButtonGroup

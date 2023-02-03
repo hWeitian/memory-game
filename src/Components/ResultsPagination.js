@@ -1,6 +1,6 @@
 import React from "react";
 import { Pagination } from "@mui/material";
-import ResultsRow from "./ResultsRow/ResultsRow";
+import { paginateResults } from "../utlis";
 
 class ResultsPagination extends React.Component {
   constructor(props) {
@@ -18,17 +18,20 @@ class ResultsPagination extends React.Component {
 
   render() {
     const postPerPage = 5;
-    const totalPages = Math.ceil(this.props.results.length / postPerPage);
-    const lastResultsIndex = this.state.currentPage * postPerPage;
-    const firstResultsIndex = lastResultsIndex - postPerPage;
-    const resultsShown = this.props.results.slice(
-      firstResultsIndex,
-      lastResultsIndex
+    const [totalPages, resultsShown] = paginateResults(
+      this.props.results,
+      postPerPage,
+      this.state.currentPage
     );
     return (
       <>
         {resultsShown}
-        <Pagination count={totalPages} onChange={this.handleChange} />
+        <Pagination
+          count={totalPages}
+          onChange={this.handleChange}
+          siblingCount={0}
+          boundaryCount={1}
+        />
       </>
     );
   }

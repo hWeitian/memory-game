@@ -6,7 +6,11 @@ body,
 
 .App {
   text-align: center;
-  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* height: 100%; */
 }
 
 ul {
@@ -15,4 +19,43 @@ ul {
 
 ul > li {
   margin: 10px 0;
+}
+
+.rules-list {
+  font-size: 0.9rem;
+  text-align: left;
+  margin: 20px 0;
+}
+
+.current-round {
+  background-color: #152938;
+  color: #fcfcfc;
+  border-radius: 10px;
+}
+
+.prev-rounds {
+  background-color: #dfe7ec;
+  color: #304859;
+  border-radius: 10px;
+}
+
+.normal-player {
+  background-color: #dfe7ec !important;
+  color: #304859 !important;
+}
+
+.current-player {
+  background-color: #fda214 !important;
+  color: #fcfcfc !important;
+}
+
+.modal-style {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f2f2f2;
+  padding: 24px;
+  text-align: center;
+  border-radius: 40px;
 }

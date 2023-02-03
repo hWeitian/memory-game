@@ -71,10 +71,6 @@ class CountdownTimer extends React.Component {
     }
   }
 
-  handleComplete = () => {
-    this.props.handleTimesUp();
-  };
-
   render() {
     const Completionist = () => <span>00:00</span>;
 
@@ -99,7 +95,7 @@ class CountdownTimer extends React.Component {
           renderer={renderer}
           autoStart={false}
           ref={this.countdownRef}
-          onComplete={this.handleComplete}
+          onComplete={this.props.handleTimesUp}
         />
       </>
     );

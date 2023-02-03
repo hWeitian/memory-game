@@ -1,6 +1,6 @@
 import React from "react";
 import "./Tiles.css";
-import { Card, CardActionArea, CardContent, styled } from "@mui/material";
+import { Card, CardActionArea, CardContent } from "@mui/material";
 import "animate.css";
 
 class Tiles extends React.Component {
