@@ -47,8 +47,7 @@ class App extends React.Component {
       displayModal: false,
       displayModalSource: "default",
       roundWinners: [],
-      // timer: 40000,
-      timer: 10000,
+      timer: 40000,
     };
   }
 
