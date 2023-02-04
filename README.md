@@ -10,9 +10,9 @@ https://hweitian.github.io/project1-bootcamp/
 
 ## Screenshots
 
-![](screenshots/front-page.png)
-![](screenshots/game-start.png)
-![](screenshots/results.png)
+![](src/screenshots/front-page.png)
+![](src/screenshots/game-start.png)
+![](src/screenshots/results.png)
 
 ## Available Scripts
 
