@@ -6,7 +6,7 @@ A memory game where players will have to match pairs of cards within the given t
 
 ## Live Site
 
-https://hweitian.github.io/project1-bootcamp/
+https://hweitian.github.io/memory-game/
 
 ## Screenshots
 
